@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algeria INVEST® — Simply, your partner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#051530;
+    --navy-2:#0b2247;
+    --green:#1D3B2C;
+    --gold:#B8912A;
+    --gold-2:#C09A3A;
+    --cream:#F2EDE4;
+    --sand:#EAE4DA;
+    --line:#D8D0C4;
+    --paper:#FEFDFC;
+    --ink:#1A1A1A;
+    --muted:#5C5848;
+    --container:1200px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:500;line-height:1.15;color:var(--navy);}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .container{max-width:var(--container);margin:0 auto;padding:0 2rem;}
+  section{padding:5.5rem 0;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:500;
+    margin-bottom:1rem;
+    display:block;
+  }
+  a:focus-visible, button:focus-visible, .btn:focus-visible, .nav a:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{scroll-behavior:auto !important; transition:none !important;}
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.6rem;
+    padding:0.9rem 1.85rem;
+    border-radius:2px;
+    font-weight:500;
+    font-size:0.95rem;
+    text-decoration:none;
+    border:1px solid transparent;
+    transition:background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .btn svg{width:16px;height:16px;flex-shrink:0;}
+  .btn-gold{background:var(--gold);color:var(--navy);}
+  .btn-gold:hover{background:var(--gold-2);}
+  .btn-outline-light{border-color:rgba(254,253,252,0.35);color:var(--paper);}
+  .btn-outline-light:hover{background:rgba(254,253,252,0.08);border-color:rgba(254,253,252,0.6);}
+  .btn-outline-dark{border-color:rgba(5,21,48,0.25);color:var(--navy);}
+  .btn-outline-dark:hover{background:rgba(5,21,48,0.05);border-color:var(--navy);}
+
+  /* ---------- Header ---------- */
+  .header{
+    position:sticky;top:0;z-index:100;
+    background:var(--navy);
+    border-bottom:1px solid rgba(254,253,252,0.08);
+  }
+  .header-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:78px;position:relative;
+  }
+  .logo{display:flex;flex-direction:column;text-decoration:none;color:var(--paper);}
+  .logo-mark{
+    font-family:'Fraunces',serif;font-weight:500;font-size:1.35rem;letter-spacing:0.01em;
+    display:flex;align-items:baseline;gap:0.25rem;
+  }
+  .logo-mark sup{font-size:0.6rem;font-weight:400;color:var(--gold);}
+  .logo-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.14em;
+    text-transform:uppercase;color:var(--gold);margin-top:0.15rem;
+  }
+  .nav-toggle{display:none;}
+  .nav-toggle-label{display:none;cursor:pointer;color:var(--paper);padding:0.5rem;}
+  .nav{display:flex;align-items:center;gap:2rem;}
+  .nav a{
+    font-size:0.92rem;color:rgba(254,253,252,0.85);text-decoration:none;
+    transition:color 0.15s ease;
+  }
+  .nav a:hover{color:var(--gold);}
+  .header-right{display:flex;align-items:center;gap:1.5rem;}
+
+  /* ---------- Plateforme dropdown ---------- */
+  .plat-wrap{position:relative;}
+  .plat-btn{
+    display:inline-flex;align-items:center;gap:0.55rem;
+    padding:0.75rem 1.4rem;
+    background:var(--gold);color:var(--navy);
+    border:none;border-radius:2px;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:0.88rem;
+    cursor:pointer;white-space:nowrap;
+    transition:background 0.18s ease;
+  }
+  .plat-btn:hover{background:var(--gold-2);}
+  .plat-btn svg.chev-plat{
+    width:11px;height:11px;transition:transform 0.2s ease;flex-shrink:0;
+    stroke:var(--navy);
+  }
+  .plat-wrap[open] .plat-btn svg.chev-plat,
+  .plat-wrap.is-open .plat-btn svg.chev-plat{transform:rotate(180deg);}
+
+  .plat-panel{
+    display:none;
+    position:absolute;top:calc(100% + 10px);right:0;
+    width:340px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    box-shadow:0 20px 48px rgba(5,21,48,0.2);
+    z-index:300;
+  }
+  .plat-wrap.is-open .plat-panel{display:block;}
+
+  .plat-header{
+    padding:1.1rem 1.4rem 0.85rem;
+    border-bottom:1px solid var(--line);
+  }
+  .plat-header p{
+    font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;
+    text-transform:uppercase;color:var(--gold-2);margin-bottom:0.2rem;
+  }
+  .plat-header span{font-size:0.82rem;color:var(--muted);}
+
+  .plat-list{list-style:none;padding:0.4rem 0;}
+  .plat-list li a{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0.72rem 1.4rem;
+    font-size:0.9rem;color:var(--ink);text-decoration:none;
+    transition:background 0.14s ease,color 0.14s ease;
+    border-left:2px solid transparent;
+  }
+  .plat-list li a:hover{
+    background:var(--cream);color:var(--navy);
+    border-left-color:var(--gold);
+  }
+  .plat-list li a .mod-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:0.68rem;
+    color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;
+  }
+  .plat-list li a:hover .mod-tag{color:var(--gold-2);}
+  .plat-list .plat-sep{
+    height:1px;background:var(--line);margin:0.4rem 1.4rem;
+  }
+
+  .plat-footer{
+    padding:0.85rem 1.4rem;
+    border-top:1px solid var(--line);
+    background:var(--cream);
+  }
+  .plat-footer a{
+    display:flex;align-items:center;justify-content:center;gap:0.5rem;
+    font-size:0.85rem;font-weight:600;color:var(--navy);text-decoration:none;
+    transition:color 0.15s ease;
+  }
+  .plat-footer a:hover{color:var(--gold-2);}
+  .plat-footer svg{width:14px;height:14px;}
+
+  @media (max-width:920px){
+    .plat-wrap{display:none;}
+  }
+
+  @media (max-width:920px){
+    .nav{
+      display:none;
+      position:absolute;top:78px;left:0;right:0;
+      flex-direction:column;align-items:flex-start;gap:1.1rem;
+      background:var(--navy);padding:1.5rem 2rem 2rem;
+      border-bottom:1px solid rgba(254,253,252,0.08);
+      max-height:calc(100vh - 78px);overflow-y:auto;
+    }
+    .nav-toggle:checked ~ .nav{display:flex;}
+    .nav-toggle-label{display:flex;}
+    .header-cta{display:none;}
+  }
+
+
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:var(--navy);
+    color:var(--paper);
+    position:relative;
+    overflow:hidden;
+    padding:5.5rem 0;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-10%;right:-10%;
+    width:60%;height:140%;
+    background-image:radial-gradient(rgba(184,145,42,0.35) 1.5px, transparent 1.5px);
+    background-size:28px 28px;
+    opacity:0.35;
+    mask-image:linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.15) 65%, transparent 100%);
+    -webkit-mask-image:linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.15) 65%, transparent 100%);
+  }
+  .hero-inner{position:relative;z-index:1;max-width:820px;}
+  .hero .eyebrow{color:var(--gold-2);}
+  .hero h1{
+    font-size:clamp(2.4rem,4.4vw,3.6rem);
+    letter-spacing:0.01em;
+    color:var(--paper);
+    max-width:700px;
+    margin-bottom:1.25rem;
+  }
+  .hero p.lead{
+    font-size:1.05rem;
+    color:rgba(254,253,252,0.78);
+    max-width:580px;
+    margin-bottom:2.25rem;
+  }
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;}
+
+  .hero-metrics{
+    display:flex;flex-wrap:wrap;gap:2.25rem 3rem;
+    padding-top:2.25rem;border-top:1px solid rgba(254,253,252,0.12);
+  }
+  .hero-metric{display:flex;flex-direction:column;gap:0.4rem;}
+  .hero-metric .num{
+    font-family:'Fraunces',serif;font-weight:500;font-size:1.9rem;
+    color:var(--gold-2);line-height:1;
+  }
+  .hero-metric .lbl{font-size:0.82rem;color:rgba(254,253,252,0.6);max-width:190px;line-height:1.5;}
+
+  .stat-number{
+    font-family:'Fraunces',serif;font-weight:500;font-size:2.4rem;
+    color:var(--navy);line-height:1;margin-bottom:0.6rem;
+  }
+  .stat-label{font-size:0.88rem;color:var(--muted);max-width:200px;}
+
+  /* ---------- Section heads ---------- */
+  .section-head{max-width:680px;margin-bottom:3rem;}
+  .section-head h2{font-size:clamp(1.9rem,3.4vw,2.75rem);margin-bottom:1rem;}
+  .section-head p{color:var(--muted);font-size:1.02rem;}
+  .section-head.light h2,.section-head.light p{color:var(--paper);}
+  .section-head.light p{color:rgba(254,253,252,0.78);}
+  .section-head.center{margin:0 auto 3rem;text-align:center;}
+
+  /* ---------- Why Algeria / timeline ---------- */
+  .why{background:var(--cream);}
+  .why-intro{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;margin-bottom:3.5rem;align-items:start;}
+  .why-intro p{color:var(--muted);}
+  .why-intro p + p{margin-top:1rem;}
+  .why-figure{
+    background:var(--paper);border:1px solid var(--line);padding:2rem;
+  }
+  .why-figure .stat-number{font-size:3rem;}
+  .why-figure .stat-label{max-width:none;}
+  .why-figure .fig-note{
+    font-size:0.85rem;color:var(--muted);margin-top:1rem;border-top:1px solid var(--line);padding-top:1rem;
+  }
+  @media (max-width:880px){.why-intro{grid-template-columns:1fr;gap:2rem;}}
+
+  /* ---------- Sectors ---------- */
+  .sectors-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);border:1px solid var(--line);
+  }
+  .sector-card{
+    background:var(--paper);
+    padding:2.25rem 2rem;
+    position:relative;
+    overflow:hidden;
+    min-height:280px;
+    display:flex;flex-direction:column;
+  }
+  .sector-card .ghost-num{
+    position:absolute;top:-1.2rem;right:-0.5rem;
+    font-family:'Fraunces',serif;font-weight:600;font-size:7rem;
+    color:var(--navy);opacity:0.05;line-height:1;
+    pointer-events:none;
+  }
+  .sector-card .icon-wrap{
+    width:46px;height:46px;border-radius:2px;
+    background:var(--cream);display:flex;align-items:center;justify-content:center;
+    color:var(--green);margin-bottom:1.25rem;position:relative;z-index:1;
+  }
+  .sector-card .icon-wrap svg{width:24px;height:24px;}
+  .sector-card h3{font-size:1.2rem;margin-bottom:0.4rem;position:relative;z-index:1;}
+  .sector-card .sector-stat{
+    font-family:'IBM Plex Mono',monospace;font-size:0.82rem;color:var(--gold-2);
+    background:rgba(184,145,42,0.1);display:inline-block;
+    padding:0.25rem 0.6rem;margin-bottom:1rem;
+    position:relative;z-index:1;
+  }
+  .sector-card ul{list-style:none;font-size:0.88rem;color:var(--muted);position:relative;z-index:1;}
+  .sector-card li{padding-left:1rem;position:relative;margin-bottom:0.45rem;}
+  .sector-card li::before{
+    content:"";position:absolute;left:0;top:0.55em;width:6px;height:1px;background:var(--gold);
+  }
+  @media (max-width:920px){.sectors-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:620px){.sectors-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Services ---------- */
+  .services{background:var(--green);color:var(--paper);}
+  .services-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:rgba(254,253,252,0.12);border:1px solid rgba(254,253,252,0.12);
+    margin-bottom:1px;
+  }
+  .service-card{
+    background:var(--green);padding:2.25rem 1.75rem;position:relative;overflow:hidden;min-height:260px;
+  }
+  .service-card .ghost-num{
+    position:absolute;top:-1.2rem;right:-0.4rem;
+    font-family:'Fraunces',serif;font-weight:600;font-size:6.5rem;
+    color:var(--paper);opacity:0.06;line-height:1;pointer-events:none;
+  }
+  .service-card .icon-wrap{
+    width:44px;height:44px;border-radius:2px;
+    background:rgba(254,253,252,0.08);display:flex;align-items:center;justify-content:center;
+    color:var(--gold-2);margin-bottom:1.25rem;position:relative;z-index:1;
+  }
+  .service-card .icon-wrap svg{width:22px;height:22px;}
+  .service-card h3{color:var(--paper);font-size:1.1rem;margin-bottom:0.75rem;position:relative;z-index:1;}
+  .service-card ul{list-style:none;font-size:0.86rem;color:rgba(254,253,252,0.75);position:relative;z-index:1;}
+  .service-card li{padding-left:1rem;position:relative;margin-bottom:0.45rem;}
+  .service-card li::before{
+    content:"";position:absolute;left:0;top:0.55em;width:6px;height:1px;background:var(--gold-2);
+  }
+  @media (max-width:920px){.services-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.services-grid{grid-template-columns:1fr;}}
+
+  .workshops{
+    background:rgba(254,253,252,0.05);
+    border:1px solid rgba(254,253,252,0.12);
+    padding:2.25rem;
+    display:grid;grid-template-columns:1.1fr 1.4fr;gap:2.5rem;
+  }
+  .workshops h3{color:var(--paper);font-size:1.3rem;margin-bottom:0.6rem;}
+  .workshops > div:first-child p{color:rgba(254,253,252,0.75);font-size:0.95rem;margin-bottom:1.25rem;}
+  .workshops-meta{
+    font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--gold-2);
+    letter-spacing:0.04em;line-height:1.9;
+  }
+  .ws-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;}
+  .ws-item{
+    border:1px solid rgba(254,253,252,0.12);padding:0.85rem 1rem;
+  }
+  .ws-item .ws-code{
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--gold-2);
+    display:flex;justify-content:space-between;margin-bottom:0.4rem;
+  }
+  .ws-item p{font-size:0.85rem;color:rgba(254,253,252,0.85);}
+  @media (max-width:880px){
+    .workshops{grid-template-columns:1fr;}
+    .ws-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Methodology ---------- */
+  .method{background:var(--cream);}
+  .method-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);margin-bottom:2.5rem;
+  }
+  .method-step{
+    background:var(--paper);padding:2rem 1.5rem;position:relative;
+  }
+  .method-step .step-num{
+    font-family:'Fraunces',serif;font-weight:500;font-size:1.6rem;color:var(--gold-2);
+    margin-bottom:1rem;
+  }
+  .method-step h4{font-size:1rem;margin-bottom:0.5rem;}
+  .method-step p{font-size:0.85rem;color:var(--muted);}
+  .method-step:not(:last-child)::after{
+    content:"";position:absolute;top:2.6rem;right:-0.65rem;
+    width:8px;height:8px;border-top:1px solid var(--gold);border-right:1px solid var(--gold);
+    transform:rotate(45deg);z-index:2;display:none;
+  }
+  @media (min-width:921px){.method-step:not(:last-child)::after{display:block;}}
+  @media (max-width:920px){.method-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:620px){.method-grid{grid-template-columns:1fr;}}
+
+  .promise{
+    border:1px solid var(--line);background:var(--paper);
+    padding:1.75rem 2rem;
+    display:flex;flex-wrap:wrap;gap:0.75rem 2.5rem;justify-content:center;
+    font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;color:var(--navy);
+  }
+
+  /* ---------- Why us ---------- */
+  .whyus-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);
+  }
+  .whyus-card{
+    background:var(--paper);padding:2.25rem 2rem;position:relative;overflow:hidden;min-height:230px;
+  }
+  .whyus-card .ghost-num{
+    position:absolute;bottom:-1.5rem;right:-0.5rem;
+    font-family:'Fraunces',serif;font-weight:600;font-size:7rem;
+    color:var(--gold);opacity:0.08;line-height:1;pointer-events:none;
+  }
+  .whyus-card h3{font-size:1.1rem;margin-bottom:0.6rem;position:relative;z-index:1;}
+  .whyus-card p{font-size:0.9rem;color:var(--muted);position:relative;z-index:1;}
+  @media (max-width:920px){.whyus-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:620px){.whyus-grid{grid-template-columns:1fr;}}
+
+  /* ---------- CTA / Footer ---------- */
+  .cta{background:var(--navy);color:var(--paper);}
+  .cta-inner{
+    display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:center;
+    border-bottom:1px solid rgba(254,253,252,0.1);padding-bottom:3.5rem;margin-bottom:3rem;
+  }
+  .cta-inner h2{color:var(--paper);font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:1rem;}
+  .cta-inner p{color:rgba(254,253,252,0.78);margin-bottom:0;}
+  .cta-actions{display:flex;flex-direction:column;gap:0.85rem;}
+  .cta-actions .btn{width:100%;justify-content:center;}
+  @media (max-width:880px){.cta-inner{grid-template-columns:1fr;}}
+
+  .footer-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2.5rem;
+    padding-bottom:3rem;
+  }
+  .footer-grid h4{
+    color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:0.75rem;
+    letter-spacing:0.14em;text-transform:uppercase;margin-bottom:1.1rem;font-weight:500;
+  }
+  .footer-grid ul{list-style:none;}
+  .footer-grid li{margin-bottom:0.6rem;font-size:0.92rem;}
+  .footer-grid a{color:rgba(254,253,252,0.75);text-decoration:none;}
+  .footer-grid a:hover{color:var(--gold);}
+  .footer-brand .logo-mark{margin-bottom:0.5rem;}
+  .footer-brand p{font-size:0.9rem;color:rgba(254,253,252,0.65);max-width:280px;}
+  @media (max-width:880px){
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .footer-brand{grid-column:1 / -1;}
+  }
+  @media (max-width:560px){.footer-grid{grid-template-columns:1fr;}}
+
+  .footer-bottom{
+    border-top:1px solid rgba(254,253,252,0.1);
+    padding:1.75rem 0;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+    font-size:0.82rem;color:rgba(254,253,252,0.55);
+  }
+  .footer-bottom .links{display:flex;gap:1.5rem;}
+  .footer-bottom a{color:rgba(254,253,252,0.55);text-decoration:none;}
+  .footer-bottom a:hover{color:var(--gold);}
+
+  @media (max-width:640px){
+    section{padding:3.5rem 0;}
+    .container{padding:0 1.25rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </symbol>
+  <symbol id="icon-sprout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22V13"/><path d="M12 13C12 13 6 13 6 7C12 7 12 13 12 13Z"/><path d="M12 13C12 13 18 13 18 7C12 7 12 13 12 13Z"/>
+  </symbol>
+  <symbol id="icon-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="14" width="4" height="7"/><rect x="10" y="9" width="4" height="12"/><rect x="16" y="4" width="4" height="17"/>
+  </symbol>
+  <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/>
+  </symbol>
+  <symbol id="icon-chip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="6" y="6" width="12" height="12" rx="1"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>
+  </symbol>
+  <symbol id="icon-mountain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 19l5-8 4 5 3-4 6 7H3z"/>
+  </symbol>
+  <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="6"/><path d="M20 20l-3.5-3.5"/>
+  </symbol>
+  <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="7" cy="12" r="3"/><circle cx="17" cy="12" r="3"/><path d="M10 12h4"/>
+  </symbol>
+  <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/>
+  </symbol>
+  <symbol id="icon-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 20V10M10 20V4M16 20v-7M21 20H3"/>
+  </symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/>
+  </symbol>
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </symbol>
+</svg>
+
+<!-- ===================== HEADER ===================== -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">Algeria INVEST<sup>®</sup></span>
+      <span class="logo-tag">Simply, your partner</span>
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+
+    <nav class="nav">
+      <a href="#pourquoi">Pourquoi l'Algérie</a>
+      <a href="#secteurs">Secteurs</a>
+      <a href="#services">Nos services</a>
+      <a href="#methodologie">Méthodologie</a>
+      <a href="#pourquoi-nous">Pourquoi nous</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-right">
+      <div class="plat-wrap" id="platWrap">
+        <button class="plat-btn" id="platBtn" aria-expanded="false" aria-controls="platPanel">
+          Accéder à la plateforme
+          <svg class="chev-plat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="plat-panel" id="platPanel" role="menu">
+          <div class="plat-header">
+            <p>Algeria INVEST® — Plateforme</p>
+            <span>7 modules pour investir en Algérie</span>
+          </div>
+          <ul class="plat-list">
+            <li><a href="#" role="menuitem"><span>Invest in Algeria</span><span class="mod-tag">Marché</span></a></li>
+            <li><a href="#" role="menuitem"><span>Legal INVEST</span><span class="mod-tag">Juridique</span></a></li>
+            <li><a href="#" role="menuitem"><span>Market Insight</span><span class="mod-tag">Analyse</span></a></li>
+            <li><a href="#" role="menuitem"><span>Opportunités d'investissement</span><span class="mod-tag">Deals</span></a></li>
+            <li class="plat-sep"></li>
+            <li><a href="#" role="menuitem"><span>Workshops Algeria INVEST</span><span class="mod-tag">Formation</span></a></li>
+            <li><a href="#" role="menuitem"><span>Actualité</span><span class="mod-tag">Veille</span></a></li>
+            <li><a href="#" role="menuitem"><span>Events</span><span class="mod-tag">Agenda</span></a></li>
+          </ul>
+          <div class="plat-footer">
+            <a href="algeria-invest-plateforme.html">
+              Voir toutes les rubriques
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Ouvrir le menu">
+        <svg width="22" height="22"><use href="#icon-menu"/></svg>
+      </label>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="container hero-inner">
+    <span class="eyebrow">Algeria INVEST® — Simply, your partner</span>
+    <h1>Votre partenaire stratégique pour investir en Algérie</h1>
+    <p class="lead">
+      Algeria INVEST® est la première plateforme digitale d'information et d'accompagnement
+      dédiée à l'investissement en Algérie. De la veille informationnelle à l'implantation
+      opérationnelle, un interlocuteur unique vous accompagne à chaque étape de votre parcours.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-gold">Demander un rendez-vous <svg><use href="#icon-arrow"/></svg></a>
+      <a href="#services" class="btn btn-outline-light">Découvrir nos services</a>
+    </div>
+
+    <div class="hero-metrics">
+      <div class="hero-metric">
+        <span class="num">48 Mds$</span>
+        <span class="lbl">investis dans les mégaprojets entre 2021 et 2024</span>
+      </div>
+      <div class="hero-metric">
+        <span class="num">+18 %</span>
+        <span class="lbl">de flux d'IDE en 2024, soit 1,43 Md$</span>
+      </div>
+      <div class="hero-metric">
+        <span class="num">1,4 Md</span>
+        <span class="lbl">consommateurs accessibles via la ZLECAf</span>
+      </div>
+      <div class="hero-metric">
+        <span class="num">+18 %</span>
+        <span class="lbl">de croissance industrielle cumulée en 2025</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== POURQUOI L'ALGÉRIE ===================== -->
+<section class="why" id="pourquoi">
+  <div class="container">
+    <div class="why-intro">
+      <div>
+        <span class="eyebrow">01 — Pourquoi investir en Algérie</span>
+        <h2>Un marché en transformation profonde</h2>
+        <p>
+          Depuis 2022, l'Algérie engage une série de réformes structurelles qui redessinent
+          son environnement des affaires : suppression de la règle des 51/49 pour les secteurs
+          non stratégiques, loi n°22-18 du 24 juillet 2022 sur l'investissement et ses huit
+          décrets d'application, guichet unique porté par l'AAPI.
+        </p>
+        <p>
+          Cette nouvelle ère se traduit par des mégaprojets structurants — mines, énergies
+          renouvelables, agro-industrie, technologies — et par une ouverture progressive vers
+          les marchés régionaux et internationaux.
+        </p>
+      </div>
+      <div class="why-figure">
+        <div class="stat-number">1,43 Md$</div>
+        <div class="stat-label">Flux d'investissements directs étrangers en 2024</div>
+        <div class="fig-note">
+          Source : Lois 2022-2025, JORADP. Les flux d'IDE ont progressé de 18 % en 2024,
+          dans un contexte mondial en recul de 11 %.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTEURS ===================== -->
+<section id="secteurs">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Opportunités 2026</span>
+      <h2>5 secteurs porteurs identifiés</h2>
+      <p>Une cartographie des filières où l'Algérie offre aujourd'hui les conditions les plus favorables à l'investissement national et international.</p>
+    </div>
+
+    <div class="sectors-grid">
+      <div class="sector-card">
+        <span class="ghost-num">01</span>
+        <div class="icon-wrap"><svg><use href="#icon-sprout"/></svg></div>
+        <h3>Agriculture &amp; agro-industrie</h3>
+        <span class="sector-stat">15 % du PIB — 34 Mds$</span>
+        <ul>
+          <li>8 M+ hectares cultivables sous-exploités : un déficit alimentaire devenu débouché</li>
+          <li>Sud saharien : serres, agro-tech, irrigation intelligente</li>
+          <li>Transformation, emballage, logistique frigorifique</li>
+        </ul>
+      </div>
+
+      <div class="sector-card">
+        <span class="ghost-num">02</span>
+        <div class="icon-wrap"><svg><use href="#icon-bars"/></svg></div>
+        <h3>Industrie &amp; manufacturing</h3>
+        <span class="sector-stat">+6,4 % de croissance en 2025</span>
+        <ul>
+          <li>Zones industrielles saturées : substitution aux importations</li>
+          <li>Électronique, automobile, textile, pharmaceutique — filières ciblées</li>
+          <li>Croissance industrielle cumulée de +18 % en 2025</li>
+        </ul>
+      </div>
+
+      <div class="sector-card">
+        <span class="ghost-num">03</span>
+        <div class="icon-wrap"><svg><use href="#icon-sun"/></svg></div>
+        <h3>Énergies renouvelables</h3>
+        <span class="sector-stat">15 000 MW d'ENR d'ici 2035</span>
+        <ul>
+          <li>Solaire PV et éolien : mégaprojets ouverts aux investisseurs</li>
+          <li>Hydrogène vert : potentiel d'export vers l'Europe</li>
+          <li>Financements BAD et partenariats internationaux actifs</li>
+        </ul>
+      </div>
+
+      <div class="sector-card">
+        <span class="ghost-num">04</span>
+        <div class="icon-wrap"><svg><use href="#icon-chip"/></svg></div>
+        <h3>Technologie &amp; digital</h3>
+        <span class="sector-stat">1 million de diplômés par an</span>
+        <ul>
+          <li>Incubateurs, start-up, fintech, e-commerce en forte croissance</li>
+          <li>Coopération algéro-américaine sur la propriété intellectuelle et l'innovation</li>
+          <li>Une économie numérique en pleine accélération</li>
+        </ul>
+      </div>
+
+      <div class="sector-card">
+        <span class="ghost-num">05</span>
+        <div class="icon-wrap"><svg><use href="#icon-mountain"/></svg></div>
+        <h3>Mines &amp; ressources stratégiques</h3>
+        <span class="sector-stat">Loi minière 2025</span>
+        <ul>
+          <li>Phosphate, zinc, lithium, minerais critiques</li>
+          <li>Nouveaux gisements ouverts à l'exploration étrangère</li>
+          <li>Partenariats industriels facilités dès 2026</li>
+        </ul>
+      </div>
+
+      <div class="sector-card" style="background:var(--cream);justify-content:center;">
+        <h3 style="margin-bottom:0.75rem;">Votre projet correspond à l'un de ces secteurs ?</h3>
+        <p style="color:var(--muted);font-size:0.92rem;margin-bottom:1.5rem;">
+          Nos équipes qualifient votre opportunité et activent le réseau adapté à votre filière.
+        </p>
+        <a href="#contact" class="btn btn-outline-dark" style="width:fit-content;">
+          Échanger avec un expert <svg><use href="#icon-arrow"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NOS SERVICES ===================== -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-head light">
+      <span class="eyebrow">03 — Nos services</span>
+      <h2>Une offre 360°, de l'information à l'implantation</h2>
+      <p>Quatre pôles d'expertise complémentaires, conçus pour sécuriser chaque étape de votre projet d'investissement en Algérie.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="ghost-num">01</span>
+        <div class="icon-wrap"><svg><use href="#icon-search"/></svg></div>
+        <h3>Abonnements &amp; veille stratégique</h3>
+        <ul>
+          <li>Veille économique — Algeria INVEST</li>
+          <li>Veille juridique — Legal INVEST</li>
+          <li>Alertes réglementaires en temps réel</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="ghost-num">02</span>
+        <div class="icon-wrap"><svg><use href="#icon-link"/></svg></div>
+        <h3>Mise en relation d'affaires</h3>
+        <ul>
+          <li>Recherche de partenaires B2B ciblés</li>
+          <li>Détection d'opportunités qualifiées</li>
+          <li>Accès au réseau Algeria Tenders®</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="ghost-num">03</span>
+        <div class="icon-wrap"><svg><use href="#icon-shield"/></svg></div>
+        <h3>Accompagnement opérationnel</h3>
+        <ul>
+          <li>Assistance AAPI et administrative</li>
+          <li>Création d'entreprise (CNRC, fiscal)</li>
+          <li>Implantation, financement, export</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="ghost-num">04</span>
+        <div class="icon-wrap"><svg><use href="#icon-chart"/></svg></div>
+        <h3>Études, analyses &amp; due diligence</h3>
+        <ul>
+          <li>Études de marché et sectorielles</li>
+          <li>Faisabilité — ROI, TRI, VAN</li>
+          <li>Due diligence juridique et financière</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="workshops">
+      <div>
+        <span class="eyebrow" style="margin-bottom:0.5rem;">Workshops Algeria INVEST</span>
+        <h3>6 ateliers pratiques pour réussir votre investissement</h3>
+        <p>Des sessions conçues par nos experts pour donner aux investisseurs les clés concrètes du marché algérien — cadre légal, création d'entreprise, financement, conformité, réseau et due diligence.</p>
+        <div class="workshops-meta">
+          FORMATS — présentiel (Alger) · en ligne · intra-entreprise<br>
+          LANGUES — FR · AR · EN · attestation remise
+        </div>
+      </div>
+      <div class="ws-grid">
+        <div class="ws-item"><div class="ws-code"><span>WS-01</span><span>1 jour</span></div><p>Investir en Algérie : cadre légal &amp; opportunités</p></div>
+        <div class="ws-item"><div class="ws-code"><span>WS-02</span><span>1 jour</span></div><p>Créer &amp; implanter son entreprise en Algérie</p></div>
+        <div class="ws-item"><div class="ws-code"><span>WS-03</span><span>0,5 jour</span></div><p>Financement &amp; structuration de projets</p></div>
+        <div class="ws-item"><div class="ws-code"><span>WS-04</span><span>0,5 jour</span></div><p>Veille juridique &amp; conformité réglementaire</p></div>
+        <div class="ws-item"><div class="ws-code"><span>WS-05</span><span>0,5 jour</span></div><p>Développer son réseau d'affaires en Algérie</p></div>
+        <div class="ws-item"><div class="ws-code"><span>WS-06</span><span>0,5 jour</span></div><p>Due diligence &amp; sécurisation des investissements</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MÉTHODOLOGIE ===================== -->
+<section class="method" id="methodologie">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">04 — Approche &amp; valeur ajoutée</span>
+      <h2>De la décision à l'implantation, un parcours en 5 étapes</h2>
+      <p>Une méthodologie structurée et transparente pour sécuriser votre investissement en Algérie, du diagnostic initial au suivi post-implantation.</p>
+    </div>
+
+    <div class="method-grid">
+      <div class="method-step">
+        <div class="step-num">01</div>
+        <h4>Diagnostic &amp; cadrage</h4>
+        <p>Analyse des objectifs, du secteur et du modèle ; identification des enjeux, risques et opportunités.</p>
+      </div>
+      <div class="method-step">
+        <div class="step-num">02</div>
+        <h4>Étude &amp; analyse</h4>
+        <p>Marché, faisabilité, due diligence, cadre réglementaire ; modélisation financière et livrables écrits.</p>
+      </div>
+      <div class="method-step">
+        <div class="step-num">03</div>
+        <h4>Mise en relation</h4>
+        <p>Activation du réseau : partenaires, fournisseurs, financeurs. Facilitation des rencontres B2B.</p>
+      </div>
+      <div class="method-step">
+        <div class="step-num">04</div>
+        <h4>Accompagnement opérationnel</h4>
+        <p>AAPI, CNRC, conformité, implantation, ouverture bancaire. Suivi complet des formalités.</p>
+      </div>
+      <div class="method-step">
+        <div class="step-num">05</div>
+        <h4>Suivi &amp; ajustement</h4>
+        <p>Veille via Legal INVEST, reporting d'avancement, ajustements et support post-implantation.</p>
+      </div>
+    </div>
+
+    <div class="promise">
+      <span>Un interlocuteur unique</span>
+      <span>Une approche sur mesure</span>
+      <span>Une transparence totale à chaque étape</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== POURQUOI NOUS ===================== -->
+<section id="pourquoi-nous">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Pourquoi nous choisir</span>
+      <h2>Pourquoi choisir Algeria INVEST®</h2>
+      <p>Six raisons qui font de notre plateforme le partenaire de référence pour investir en Algérie en toute confiance.</p>
+    </div>
+
+    <div class="whyus-grid">
+      <div class="whyus-card">
+        <span class="ghost-num">01</span>
+        <h3>Expertise locale</h3>
+        <p>Une équipe implantée en Algérie, qui connaît les codes administratifs, culturels et réglementaires. Nous anticipons les obstacles avant qu'ils n'apparaissent.</p>
+      </div>
+      <div class="whyus-card">
+        <span class="ghost-num">02</span>
+        <h3>Vision internationale</h3>
+        <p>Compréhension des attentes des investisseurs étrangers. Nous traduisons la réalité algérienne en critères de décision clairs et actionnables.</p>
+      </div>
+      <div class="whyus-card">
+        <span class="ghost-num">03</span>
+        <h3>Offre 360° intégrée</h3>
+        <p>De l'information à l'implantation, un seul partenaire couvre l'ensemble du parcours. Pas de fragmentation ni de discontinuité.</p>
+      </div>
+      <div class="whyus-card">
+        <span class="ghost-num">04</span>
+        <h3>Réseau institutionnel établi</h3>
+        <p>Relations privilégiées avec l'AAPI, les ministères, les banques et les acteurs économiques clés — accès accéléré aux décideurs.</p>
+      </div>
+      <div class="whyus-card">
+        <span class="ghost-num">05</span>
+        <h3>Rigueur analytique</h3>
+        <p>Des livrables structurés et actionnables — études de marché, due diligences, plans de financement — au niveau des standards des cabinets internationaux.</p>
+      </div>
+      <div class="whyus-card">
+        <span class="ghost-num">06</span>
+        <h3>Partenariat de confiance</h3>
+        <p>Nous accompagnons nos clients dans la durée. Notre succès est directement lié à la réussite de leurs projets — transparence et éthique.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA + FOOTER ===================== -->
+<footer class="cta" id="contact">
+  <div class="container">
+    <div class="cta-inner">
+      <div>
+        <span class="eyebrow">Passons à l'action</span>
+        <h2>Discutons de vos projets et besoins spécifiques</h2>
+        <p>Notre équipe vous répond pour qualifier votre projet et vous orienter vers le pôle d'expertise adapté.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="mailto:contact@algeriainvest.com" class="btn btn-gold">Demander un rendez-vous <svg><use href="#icon-arrow"/></svg></a>
+        <a href="https://algeriainvest.com" class="btn btn-outline-light">Accéder à la plateforme — algeriainvest.com</a>
+        <a href="#" class="btn btn-outline-light">Legal INVEST &amp; services <svg><use href="#icon-arrow"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-mark">Algeria INVEST<sup>®</sup></span>
+        <p>La première plateforme digitale d'information et d'accompagnement dédiée à l'investissement en Algérie. Un projet i2b Group — Alger, 2026.</p>
+      </div>
+      <div>
+        <h4>Plateforme</h4>
+        <ul>
+          <li><a href="#pourquoi">Pourquoi l'Algérie</a></li>
+          <li><a href="#secteurs">Secteurs porteurs</a></li>
+          <li><a href="#services">Nos services</a></li>
+          <li><a href="#methodologie">Méthodologie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ressources</h4>
+        <ul>
+          <li><a href="#">Algeria INVEST — veille économique</a></li>
+          <li><a href="#">Legal INVEST — veille juridique</a></li>
+          <li><a href="#">Algeria Tenders®</a></li>
+          <li><a href="#">Workshops &amp; formations</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:contact@algeriainvest.com">contact@algeriainvest.com</a></li>
+          <li><a href="tel:+213770007827">+213 770 00 78 27</a></li>
+          <li><span style="color:rgba(254,253,252,0.75);">Alger, Algérie</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 i2b SPA — Algeria INVEST®. Tous droits réservés.</span>
+      <div class="links">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+        <a href="#">Conditions d'utilisation</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var wrap = document.getElementById('platWrap');
+  var btn  = document.getElementById('platBtn');
+  var panel= document.getElementById('platPanel');
+  if(!wrap) return;
+
+  function open(){
+    wrap.classList.add('is-open');
+    btn.setAttribute('aria-expanded','true');
+  }
+  function close(){
+    wrap.classList.remove('is-open');
+    btn.setAttribute('aria-expanded','false');
+  }
+
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    wrap.classList.contains('is-open') ? close() : open();
+  });
+
+  document.addEventListener('click', function(e){
+    if(!wrap.contains(e.target)) close();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape') close();
+  });
+
+  panel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ close(); });
+  });
+})();
+</script>
+
+</body>
+</html>
